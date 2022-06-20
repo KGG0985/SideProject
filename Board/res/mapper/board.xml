@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+
+
+	<insert id="insertPost" parameterType="bodVO">
+		INSERT INTO jdbc_board  
+		( board_no, board_title, board_writer, board_date ,board_content)
+		VALUES (BOARD_SEQ.NEXTVAL, #{bodTitle}, #{bodWriter}, SYSDATE, #{bodContent})
+	
+	</insert>
+	
+	<update id="updatePost" parameterType="bodVO">
+	
+			update jdbc_board
+				set board_title = #{bodTitle},
+				board_writer = #{bodWriter},
+				board_content = #{bodContent}
+			where board_no = #{bodNo}
+	</update>
+	
+	<delete id="deletePost" >
+	
+		delete from jdbc_board where board_no = #{aaaaaa}
+	</delete>
+	
+	<select id="getPostAll" resultType="bodVO">
+	
+		select board_no as bodNo
+		      ,board_writer as bodWriter
+		      ,board_title as bodTitle
+		      ,board_content as bodContent
+		from jdbc_board
+		
+	</select>
+	
+
+	<select id="checkPost" parameterType="String" resultType="int">
+		
+		select count(*) as cnt 
+		from jdbc_board where board_no = #{bodNo}
+		
+	
+	</select>
+
+	<select id="searchPost" resultType="bodVO" >
+		SELECT BOARD_NO as bodNo
+			 , BOARD_TITLE as bodTitle
+			 , BOARD_WRITER as bodWriter
+			 , BOARD_DATE as bodDate
+			 , BOARD_CONTENT as bodContent
+		  FROM JDBC_BOARD where 1=1
+		  
+ 		<if test="bodNo != null and bodNo != ''">
+			and board_no = #{bodNo} 
+		</if> 
+		<if test="bodWriter != null and bodWriter != ''">
+			and board_writer = #{bodWriter} 
+		</if>
+		<if test="bodTitle != null and bodTitle != ''">
+			and board_title = #{bodTitle} 
+		</if>
+		<if test="bodContent != null and bodContent != ''">
+			and board_content like '%' || #{bodContent} || '%' 
+		</if>
+	</select>
+
+</mapper>
