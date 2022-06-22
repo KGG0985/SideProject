@@ -1,4 +1,4 @@
-package kr.or.study.util;
+package kr.or.study.board.util;
 
 import java.io.IOException;
 import java.io.Reader;
