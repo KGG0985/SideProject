@@ -13,7 +13,8 @@
  </settings>
  
  <typeAliases>
- 	<typeAlias type="kr.or.ddit.board.vo.BoardVO" alias="bodVO"/>
+ 	<typeAlias type="kr.or.study.vo.BoardVO" alias="bodVO"/>
+ 	<typeAlias type="kr.or.study.vo.CommentVO" alias="comVO"/>
  </typeAliases>
  
  <environments default="development">
@@ -30,6 +31,7 @@
  
  <mappers>
  	<mapper resource="mapper/board.xml"/>
+ 	<mapper resource="mapper/comment.xml"/>
  </mappers>
  
  
