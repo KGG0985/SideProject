@@ -1,18 +1,23 @@
-package kr.or.study.controller;
+package kr.or.study.test;
 
+import java.util.List;
 import java.util.Scanner;
 
-import kr.or.study.service.BoardServiceImpl;
-import kr.or.study.service.IBoardService;
+import kr.or.study.service.CommentService;
+import kr.or.study.service.CommentServiceImpl;
+import kr.or.study.vo.CommentVO;
 
-
-public class BoardInfoMain {
+public class CommentTest {
+	CommentService comService;
+	
 	private Scanner scan = new Scanner(System.in);
 	
-	public BoardInfoMain() {
-		
-		
-	}
+	public CommentTest() {
+		comService = new CommentServiceImpl();
+	
+	}	
+	
+	
 	
 	public void displayMenu(){
 		displayPostAll();
@@ -58,37 +63,88 @@ public class BoardInfoMain {
 			}
 		}while(choice != 6);
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private void searchPost() {
 		// TODO Auto-generated method stub
 		
 	}
 
+
+
 	private void displayPostAll() {
-		// TODO Auto-generated method stub
 		
+		CommentVO cv = new CommentVO();
+		cv.setBoardCno("1");
+		
+		List<CommentVO> comList = comService.getCommentAll(cv);
+		for (CommentVO bv1 : comList) {
+			System.out.println();
+			System.out.println("[" + bv1.getComNo()+"번 댓글]");
+			System.out.println(" 작성자 : " + bv1.getMemCid() + " | 작성일자 : " + bv1.getComDate());
+			System.out.println(" " + bv1.getComContent());
+			System.out.println("=================================================");
+		}
+		System.out.println("출력작업 끝");
 	}
+
+
 
 	private void updatePost() {
 		// TODO Auto-generated method stub
 		
 	}
 
+
+
 	private void deletePost() {
 		// TODO Auto-generated method stub
 		
 	}
 
+
+
 	private void insertPost() {
-		// TODO Auto-generated method stub
+		System.out.print("회원 이름 >> ");
+		String comContent = scan.next();
 		
+		
+		CommentVO co = new CommentVO();
+		
+		co.setComContent(comContent);
+		co.setBoardCno("1");
+		co.setMemCid("asd777");
+		
+		int cnt = comService.writeComment(co);
+		
+		if(cnt > 0) {
+			System.out.println( "회원정보 등록 성공");
+		}else {
+			System.out.println( "회원정보 등록 실패!!!");
+		}
 	}
-	
-	
-	
+
+
+
 	public static void main(String[] args) {
-		BoardInfoMain bodObj = new BoardInfoMain();
-		bodObj.start();
+		CommentTest comObj = new CommentTest();
+		comObj.start();
 	}
-	
+
+
+
+
 }
