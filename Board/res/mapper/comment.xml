@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.study.vo.CommentVO">
+
+<!--CREATE TABLE PJ_COMMENTS 
+ COM_NO NUMBER NOT NULL 
+, COM_CONTENT CLOB 
+, COM_DATE DATE DEFAULT sysdate NOT NULL 
+, BOARD_CNO NUMBER NOT NULL 
+, MEM_CID VARCHAR2(20) NOl NULL -->
+
+	<insert id="writeComment" parameterType="comVO">
+		INSERT INTO PJ_COMMENTS  
+		( COM_NO, COM_CONTENT, COM_DATE, BOARD_CNO ,MEM_CID)
+		VALUES (comment_seq.NEXTVAL, #{comContent}, SYSDATE, #{boardCno}, #{memCid})
+	
+	</insert>
+	
+	<!-- 본인 확인 절차 필요 -->
+	<update id="updateComment" parameterType="comVO">
+	
+			update PJ_COMMENTS
+				set COM_CONTENT = #{comContent}
+			where COM_NO = #{comNo}
+	</update>
+	
+	
+	<delete id="deleteComment" >
+	
+		delete from PJ_COMMENTS where COM_NO = #{aaaaaa}
+	</delete>
+	
+	<select id="getCommentAll" resultType="comVO">
+	
+		select COM_NO
+		      ,COM_CONTENT
+		      ,COM_DATE
+		      ,MEM_CID
+		      ,BOARD_CNO
+		from PJ_COMMENTS
+	where BOARD_CNO = #{boardCno}
+		
+	</select>
+	
+
+<!-- 	<select id="check" parameterType="String" resultType="int">
+		
+		select count(*) as cnt 
+		from jdbc_board where board_no = #{bodNo}
+		
+	
+	</select>
+
+	<select id="searchPost" resultType="bodVO" >
+		SELECT BOARD_NO as bodNo
+			 , BOARD_TITLE as bodTitle
+			 , BOARD_WRITER as bodWriter
+			 , BOARD_DATE as bodDate
+			 , BOARD_CONTENT as bodContent
+		  FROM JDBC_BOARD where 1=1
+		  
+ 		<if test="bodNo != null and bodNo != ''">
+			and board_no = #{bodNo} 
+		</if> 
+		<if test="bodWriter != null and bodWriter != ''">
+			and board_writer = #{bodWriter} 
+		</if>
+		<if test="bodTitle != null and bodTitle != ''">
+			and board_title = #{bodTitle} 
+		</if>
+		<if test="bodContent != null and bodContent != ''">
+			and board_content like '%' || #{bodContent} || '%' 
+		</if>
+	</select> -->
+
+</mapper>
