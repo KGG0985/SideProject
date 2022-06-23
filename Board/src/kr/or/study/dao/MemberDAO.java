@@ -6,6 +6,8 @@ import kr.or.study.vo.MemberVO;
 
 public interface MemberDAO {
 	
+	....
+	
 	public int login(MemberVO mv);
 	
 	
