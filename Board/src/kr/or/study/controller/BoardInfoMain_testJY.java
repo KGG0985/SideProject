@@ -16,7 +16,7 @@ public class BoardInfoMain_testJY {
 		
 	}	
 	
-	//public static MemberVO mv; // 멤버VO를 static으로 선언해서 id값을 유지하도록!
+	public static MemberVO mv; // 멤버VO를 static으로 선언해서 id값을 유지하도록!
 	
 	
 	// 로그인 메뉴 실행 후, 로그인 되면 displayMenu가 되는 것 !
@@ -83,7 +83,7 @@ public class BoardInfoMain_testJY {
 		System.out.print("이름 : ");
 		String memName = scan.next();
 		
-		MemberVO mv = new MemberVO();
+
 		mv.setMemId(memId);
 		mv.setMemPassword(memPassword);
 		mv.setMemName(memName);
