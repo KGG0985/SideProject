@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import kr.or.study.service.MemberService;
 import kr.or.study.service.MemberServiceImpl;
+import kr.or.study.vo.MemberVO;
 
 public class BoardInfoMain_testJY {
 	
@@ -13,8 +14,9 @@ public class BoardInfoMain_testJY {
 	public BoardInfoMain_testJY() {
 		memService = MemberServiceImpl.getInstance();
 		
-	}
+	}	
 	
+	//public static MemberVO mv; // 멤버VO를 static으로 선언해서 id값을 유지하도록!
 	
 	
 	// 로그인 메뉴 실행 후, 로그인 되면 displayMenu가 되는 것 !
@@ -53,21 +55,56 @@ public class BoardInfoMain_testJY {
 			}
 		}while(choice != 3);
 	}
-
 	
 	
-	
-	private void insertMember() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	private void loginMember() {
 		// TODO Auto-generated method stub
 		
+	}	
+	
+	private void insertMember() {
+		
+		boolean isExist = false;
+		String memId = "";
+		
+		do {
+		System.out.println("==회원 가입==");
+		System.out.print("아이디 : ");
+		memId = scan.next();
+		
+		isExist = checkMember(memId);
+		if(isExist) {
+			System.out.println("이미 존재하는 아이디 입니다. 다시 입력해주세요 ");
+		}
+				
+		} while(isExist);
+		System.out.print("비밀번호 : ");
+		String memPassword = scan.next();
+		System.out.print("이름 : ");
+		String memName = scan.next();
+		
+		MemberVO mv = new MemberVO();
+		mv.setMemId(memId);
+		mv.setMemPassword(memPassword);
+		mv.setMemName(memName);
+		
+		int cnt = memService.insertMember(mv);
+		
+		if(cnt>0) {
+			System.out.println(mv.getMemId()+"회원 가입 성공");
+			
+		} else {
+			System.out.println("회원 가입 실패");
+		}
+		
 	}
 
+
+	private boolean checkMember(String memId) {
+		boolean isExist = memService.checkMember(memId);		
+		return isExist;
+	}
+	
 
 	public void displayMenu(){
 		displayPostAll();
@@ -139,8 +176,7 @@ public class BoardInfoMain_testJY {
 		
 	}
 	
-	
-	
+		
 	public static void main(String[] args) {
 		BoardInfoMain_testJY bodObj = new BoardInfoMain_testJY();
 		bodObj.loginStart();
