@@ -15,6 +15,7 @@
  <typeAliases>
  	<typeAlias type="kr.or.study.vo.BoardVO" alias="bodVO"/>
  	<typeAlias type="kr.or.study.vo.CommentVO" alias="comVO"/>
+ 	<typeAlias type="kr.or.study.vo.MemberVO" alias="memVO"/>
  </typeAliases>
  
  <environments default="development">
