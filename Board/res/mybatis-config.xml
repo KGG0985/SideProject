@@ -8,7 +8,7 @@
  <settings>
  	<!-- DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑하도록 설정하기 -->
  	<setting name="mapUnderscoreToCamelCase" value="true"/>
- 	
+ 	<setting name="jdbcTypeForNull" value="NULL" />
  	<setting name="logImpl" value="LOG4J"/>
  </settings>
  

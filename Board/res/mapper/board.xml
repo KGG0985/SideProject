@@ -3,36 +3,39 @@
 <mapper namespace="board">
 
 
-	<insert id="insertBoard" parameterType="bodVO">
-		INSERT INTO pj_board  
-		( board_no, board_title, memid_writer, board_content ,board_date, board_hits)
-		VALUES (BOARD_SEQ.NEXTVAL, #{bodTitle}, #{memidWriter}, #{bodContent}, SYSDATE, #{bodHits})
+<insert id="insertBoard" parameterType="bodVO">
+	<!--<selectKey order="BEFORE" keyProperty="boardNo" resultType="int">
+		 select board_seq.nextval from dual 
+	</selectKey>-->
+		INSERT INTO PJ_BOARD  
+		( BOARD_NO, BOARD_TITLE, MEMID_WRITER, BOARD_CONTENT ,BOARD_DATE, BOARD_HITS)
+		VALUES (board_seq.NEXTVAL, #{boardTitle}, #{memidWriter}, #{boardContent}, SYSDATE,0)
 	
 	</insert>
 	
 	<update id="updateBoard" parameterType="bodVO">
 	
-			update pj_board
-				set board_title = #{bodTitle},
-				memid_writer = #{memidWriter},
-				board_content = #{bodContent},
-				board_hits = #{bodHits}
-			where board_no = #{bodNo}
-	</update>
+			update PJ_BOARD
+				set BOARD_TITLE = #{boardTitle},
+				MEMID_WRITER = #{memidWriter},
+				BOARD_CONTENT = #{boardContent}
+				
+			where BOARD_NO = #{boardNo}
+	</update>	
 	
 	<delete id="deleteBoard" >
 	
-		delete from pj_board where board_no = #{aaaaaa}
+		delete from PJ_BOARD where BOARD_NO = #{aaaaaa}
 	</delete>
 	
 	<select id="getBoardAll" resultType="bodVO">
 	
-		select board_no as bodNo
-		      ,board_title as bodTitle
-		      ,memid_writer as bodWriter
-		      ,board_content as bodContent
-		      ,board_hits as bodHits
-		from pj_board
+		select BOARD_NO 
+		      ,BOARD_TITLE 
+		      ,MEMID_WRITER 
+		      ,BOARD_CONTENT 
+		      ,BOARD_HITS 
+		from PJ_BOARD
 		
 	</select>
 	
@@ -40,32 +43,36 @@
 	<select id="checkBoard" parameterType="String" resultType="int">
 		
 		select count(*) as cnt 
-		from pj_board where board_no = #{bodNo}
+		from PJ_BOARD where BOARD_NO = #{boardNo}
 		
 	
 	</select>
 
 	<select id="searchBoard" resultType="bodVO" >
-		SELECT BOARD_NO as bodNo
-			 , BOARD_TITLE as bodTitle
-			 , MEMID_WRITER as midWriter
-			 , BOARD_CONTENT as bodContent
-			 , BOARD_DATE as bodDate
-			 , BOARD_HITS as bodHits
+		SELECT BOARD_NO 
+			 , BOARD_TITLE 
+			 , MEMID_WRITER 
+			 , BOARD_CONTENT 
+			 , BOARD_DATE 
+			 , BOARD_HITS 
 		  FROM PJ_BOARD where 1=1
 		  
- 		<if test="bodNo != null and bodNo != ''">
-			and board_no = #{bodNo} 
+ 		<if test="boardNo != null and boardNo != ''">
+			and board_no = #{boardNo} 
 		</if> 
-		<if test="bodWriter != null and bodWriter != ''">
-			and board_writer = #{bodWriter} 
+		<if test="boardTitle != null and boardTitle != ''">
+			and board_title = #{boardTitle} 
 		</if>
-		<if test="bodTitle != null and bodTitle != ''">
-			and board_title = #{bodTitle} 
+		<if test="memidWriter != null and memidWriter != ''">
+			and memid_writer = #{memidWriter} 
 		</if>
-		<if test="bodContent != null and bodContent != ''">
-			and board_content like '%' || #{bodContent} || '%' 
+		<if test="boardContent != null and boardContent != ''">
+			and board_content like '%' || #{boardContent} || '%' 
 		</if>
+		<if test="boardHits != null and boardHits != ''">
+			and board_hits = #{boardHits} 
+		</if>
+		
 	</select>
 
 </mapper>
