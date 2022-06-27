@@ -16,7 +16,7 @@
 	
 	</insert>
 	
-	<!-- 본인 확인 절차 필요 -->
+
 	<update id="updateComment" parameterType="comVO">
 	
 			update PJ_COMMENTS
@@ -27,7 +27,7 @@
 	
 	<delete id="deleteComment" >
 	
-		delete from PJ_COMMENTS where COM_NO = #{aaaaaa}
+		delete from PJ_COMMENTS where COM_NO = #{comNo}
 	</delete>
 	
 	<select id="getCommentAll" resultType="comVO">
@@ -43,14 +43,15 @@
 	</select>
 	
 
-<!-- 	<select id="check" parameterType="String" resultType="int">
+	<select id="checkComment" parameterType="String" resultType="int">
 		
 		select count(*) as cnt 
-		from jdbc_board where board_no = #{bodNo}
+		from PJ_COMMENTS where COM_NO = #{comNo}
 		
 	
 	</select>
 
+<!-- 
 	<select id="searchPost" resultType="bodVO" >
 		SELECT BOARD_NO as bodNo
 			 , BOARD_TITLE as bodTitle

@@ -17,7 +17,8 @@ public class CommentDAOImpl implements CommentDAO{
 	
 	@Override
 	public List<CommentVO> getCommentAll(CommentVO cv) {
-		List<CommentVO> comList = sqlSession.selectList(namespace +".getCommentAll");
+//		return sqlSession.selectList(namespace +".getCommentAll", cv);
+		List<CommentVO> comList = sqlSession.selectList(namespace +".getCommentAll", cv);
 		return comList;
 	}
 
@@ -33,4 +34,32 @@ public class CommentDAOImpl implements CommentDAO{
 			return cnt;
 		}
 
+	@Override
+	public int updateComment(CommentVO cv) {
+		int cnt = sqlSession.update(namespace +".updateComment", cv);
+		if (cnt > 0) {
+			sqlSession.commit();
+		}else {
+			sqlSession.rollback();
+		}
+		return cnt;
+	}
+
+	@Override
+	public int deleteComment(String comNo) {
+		int cnt = sqlSession.delete(namespace + ".deletePost",comNo);
+		return cnt;
+	}
+
+	@Override
+	public boolean checkComment(String comNo) {
+		boolean isExist = false;
+		
+		int cnt = (int) sqlSession.selectOne(namespace +".checkComment",comNo);
+		
+		if (cnt > 0) {
+			isExist = true;
+		}
+		return isExist;
+	}
 }

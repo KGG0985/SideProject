@@ -2,43 +2,41 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
 <configuration>
-	<properties resource="db.properties" />
-	
-	<settings>
-	
-<!-- 	DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑하도록 설정하기-->
-		<setting name="mapUnderscoreToCamelCase" value="true"/> 
-		 <setting name="logImpl" value="LOG4J"/>
-		
-		
-	</settings>
-	
-	<typeAliases>
-		<typeAlias type="kr.or.study.vo.MemberVO" alias = "memVO"/>
-		
-		
-	</typeAliases>
-
-	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC"/>
-			<dataSource type="POOLED"> 
-				<property name="url" value="${url}"/> 
-				<property name="driver" value="${driver}"/> 
-				<property name="username" value="${user}"/> 
-				<property name="password" value="${password}"/> 
-<!-- 				직접 드라이버 주소를 써도 되지만, 해당 속성코드를 이용하여 작성 -->
-			
-			</dataSource>
-		</environment>
-	</environments>
-
-<mappers>
-	<mapper resource="mapper/member.xml"/>
-
-</mappers>
-
+ <properties resource="db.properties" />
+ 
+ <settings>
+ 	<!-- DB 컬럼명을 낙타표기법으로 속성명과 자동 매핑하도록 설정하기 -->
+ 	<setting name="mapUnderscoreToCamelCase" value="true"/>
+ 	<setting name="jdbcTypeForNull" value="NULL" />
+ 	<setting name="logImpl" value="LOG4J"/>
+ </settings>
+ 
+ <typeAliases>
+ 	<typeAlias type="kr.or.study.vo.BoardVO" alias="bodVO"/>
+ 	<typeAlias type="kr.or.study.vo.CommentVO" alias="comVO"/>
+ 	<typeAlias type="kr.or.study.vo.MemberVO" alias="memVO"/>
+ </typeAliases>
+ 
+ <environments default="development">
+ 	<environment id="development">
+ 		<transactionManager type="JDBC"/>
+ 		<dataSource type="POOLED">
+ 			<property name="url" value="${url}"/>
+ 			<property name="driver" value="${driver}"/>
+ 			<property name="username" value="${user}"/>
+ 			<property name="password" value="${password}"/>
+ 		</dataSource>
+ 	</environment>
+ </environments>
+ 
+ <mappers>
+ 	<mapper resource="mapper/board.xml"/>
+ 	<mapper resource="mapper/member.xml"/>
+ 	<mapper resource="mapper/comment.xml"/>
+ </mappers>
+ 
+ 
+ 
 </configuration>
 

@@ -24,4 +24,22 @@ public class CommentServiceImpl implements CommentService{
 		return comDao.writeComment(cv);
 	}
 
+	@Override
+	public int updateComment(CommentVO cv) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteComment(String comNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean checkComment(String comNo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
