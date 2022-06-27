@@ -1,5 +1,6 @@
 package kr.or.study.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 import kr.or.study.service.MemberService;
@@ -11,20 +12,21 @@ public class BoardInfoMain_testJY {
 	private Scanner scan = new Scanner(System.in);
 	
 	private MemberService memService;
+	
 	public BoardInfoMain_testJY() {
-		memService = MemberServiceImpl.getInstance();
-		
+		memService = MemberServiceImpl.getInstance();		
 	}	
 	
-	public static MemberVO mv; // 멤버VO를 static으로 선언해서 id값을 유지하도록!
 	
+	public static String loginMemID = null;
+	public static String loginMemPasssword = null; // 보안 문제
 	
+		
 	// 로그인 메뉴 실행 후, 로그인 되면 displayMenu가 되는 것 !
 	
 	
 	public void loginMenu(){
-		displayPostAll();
-		
+			
 		System.out.println();
 		System.out.println("----------------------");
 		System.out.println("  === 로 그 인 화 면 ===");
@@ -53,13 +55,60 @@ public class BoardInfoMain_testJY {
 				default :
 					System.out.println("번호를 잘못 입력했습니다. 다시입력하세요");
 			}
-		}while(choice != 3);
+		} while(choice != 3 && loginMemID==null);
 	}
 	
 	
 	private void loginMember() {
-		// TODO Auto-generated method stub
+		boolean isExist = false;
+		String memId ="";
+		String memPassword="";
 		
+		
+		// 아이디 체크
+		do {
+			System.out.println("==로그인==");
+			System.out.print("아이디 : ");
+			memId = scan.next();
+			
+			isExist = checkMember(memId);
+			
+			if(!isExist) {
+				System.out.println("존재하지 않는 아이디 입니다");
+			}
+			
+			} while(!isExist);
+		
+		
+		// 비밀번호 체크
+
+		while(true) {
+			
+		
+			System.out.print("비밀번호 : ");
+			memPassword = scan.next();
+			
+			MemberVO mv = new MemberVO();
+			
+			mv.setMemId(memId);
+			mv.setMemPassword(memPassword);
+			
+			int cnt = memService.login(mv);
+			
+			if(cnt>0) {
+				System.out.println("로그인 성공");
+				loginMemID = memId;
+				loginMemPasssword = memPassword;
+				
+				start();
+					
+				break;
+			} else {
+				System.out.println("비밀번호를 확인하세요");
+			}		
+			
+		}	
+									
 	}	
 	
 	private void insertMember() {
@@ -78,11 +127,14 @@ public class BoardInfoMain_testJY {
 		}
 				
 		} while(isExist);
+		
+		
 		System.out.print("비밀번호 : ");
 		String memPassword = scan.next();
 		System.out.print("이름 : ");
 		String memName = scan.next();
 		
+		MemberVO mv = new MemberVO();
 
 		mv.setMemId(memId);
 		mv.setMemPassword(memPassword);
@@ -105,6 +157,7 @@ public class BoardInfoMain_testJY {
 		return isExist;
 	}
 	
+	
 
 	public void displayMenu(){
 		displayPostAll();
@@ -118,10 +171,13 @@ public class BoardInfoMain_testJY {
 		System.out.println("  4. 게시판 출력");
 		System.out.println("  5. 게시판 검색");
 		System.out.println("  6. 작업 끝.");
+		System.out.println("  7. 마이 메뉴.");
 		System.out.println("----------------------");
 		System.out.print("원하는 작업 선택 >> ");
 	}
 	public void start(){
+		
+		
 		int choice = 0;
 		do{
 			displayMenu(); //메뉴 출력
@@ -145,42 +201,114 @@ public class BoardInfoMain_testJY {
 				case 6 :  // 작업 끝
 					System.out.println("작업을 마칩니다.");
 					break;
+				case 7 :  // 마이 메뉴
+					mymenu();
+					break;
 				default :
 					System.out.println("번호를 잘못 입력했습니다. 다시입력하세요");
 			}
 		}while(choice != 6);
 	}
 
-	private void searchPost() {
-		// TODO Auto-generated method stub
+	private void mymenu() {
+		
+		
+		System.out.println("  === 로 그 인 화 면 ===");
+		System.out.println("  1. 회원 정보 보기");
+		System.out.println("  2. 회원 정보 수정");
+		System.out.println("  3. 회원 탈퇴");
+		System.out.println("  4. 종료");
+		System.out.println("----------------------");
+		
+		
+		int choice = 0;		
+		do{
+		
+			choice = scan.nextInt(); // 메뉴번호 입력받기
+			switch(choice){
+				case 1 :  // 나의 회원 정보보기
+					serchMember();
+					break;
+				case 2 :  // 회원 정보 수정
+					updateMember();
+					break;
+				case 3 :  // 회원 탈퇴
+					delectMember();
+					break;
+				case 4 :  // 종료
+					System.out.println("종료합니다");
+					break;
+				default :
+					System.out.println("번호를 잘못 입력했습니다. 다시입력하세요");
+			}
+		}while(choice != 4);
 		
 	}
+	
 
-	private void displayPostAll() {
-		// TODO Auto-generated method stub
+	private void delectMember() {
 		
+	System.out.println(loginMemID + "님 회원 탈퇴를 하시겠습니까?");	
+	System.out.print("네 / 아니요");
+	String msg = scan.next();
+	
+	if(msg.equals("네")){
+		MemberVO mv = new MemberVO();
+		mv.setMemId(loginMemID);	
+		
+		int cnt = memService.deleteMember(loginMemID);
+		
+		if(cnt > 0) {
+			System.out.println(loginMemID + "회원 탈퇴 성공.");
+			loginStart();
+			
+		}else {
+			System.out.println(loginMemID + "회원 탈퇴 실패!!!");
+		}
+	}
+			
+	
+	}
+
+	private void updateMember() {
+				
+	}
+
+	private void serchMember() {
+		
+	MemberVO mv = new MemberVO();
+	mv.setMemId(loginMemID);
+	
+	List<MemberVO> memList = memService.searchMember(mv);
+	
+	
+	for(MemberVO mv2 : memList) {
+		System.out.println("아이디 : " + mv2.getMemId() + "이름 : " + mv2.getMemName() + " 가입일 : " + mv2.getMemJoinDate());
+	}
+	
+	
+	}	
+	
+	private void searchPost() {
+	}
+
+	private void displayPostAll() {	
 	}
 
 	private void updatePost() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void deletePost() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void insertPost() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 		
 	public static void main(String[] args) {
 		BoardInfoMain_testJY bodObj = new BoardInfoMain_testJY();
 		bodObj.loginStart();
-		bodObj.start();
+	
 	}
 	
 }

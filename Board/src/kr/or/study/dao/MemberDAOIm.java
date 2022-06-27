@@ -18,6 +18,7 @@ public class MemberDAOIm implements MemberDAO {
 		sqlSession = MybatisUtil.getInstance(); 		
 	}
 	
+	
 	public static MemberDAO getInstance() {
 		if (memDao == null) {
 			memDao = new MemberDAOIm();
@@ -28,7 +29,7 @@ public class MemberDAOIm implements MemberDAO {
 	
 	@Override
 	public int login(MemberVO mv) {
-		int cnt = sqlSession.insert("member.login", mv);
+		int cnt = sqlSession.selectOne("member.login", mv);
 
 		if (cnt > 0) {
 			sqlSession.commit();
@@ -37,6 +38,8 @@ public class MemberDAOIm implements MemberDAO {
 		}
 
 		return cnt;
+		
+	
 	}
 	
 	
@@ -88,7 +91,7 @@ public class MemberDAOIm implements MemberDAO {
 
 	@Override
 	public List<MemberVO> searchMember(MemberVO mv) {
-		List<MemberVO> memList = sqlSession.selectList("member.updateMember", mv);
+		List<MemberVO> memList = sqlSession.selectList("member.searchMember", mv);
 
 
 		return memList;

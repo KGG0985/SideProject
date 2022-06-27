@@ -2,10 +2,9 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-	<select id="login" resultType="memVO">
+	<select id="login" resultType="int" parameterType = "memVO">
 	
-		select mem_id 
-		       ,mem_password
+		select count(*) as cnt
 	     from  pj_member
 	    where  mem_id = #{memId} 
 	      and  mem_password = #{memPassword}
@@ -15,7 +14,7 @@
 	<insert id="insertMember">
 		insert into PJ_member
 			(mem_id, mem_name, mem_password, mem_joindate)
-		values (#{memId}, #{memName}, #{memPassword}, sysdate);
+		values (#{memId}, #{memName}, #{memPassword}, sysdate)
 	
 	</insert>
 	
@@ -29,7 +28,7 @@
 	
 	<delete id="deleteMember">
 	
-<!-- 		delete from PJ_member where mem_id = #{memId} -->
+ 		delete from PJ_member where mem_id = #{memId} 
 	</delete>
 	
 	<select id="printMember" resultType="memVO">
@@ -47,22 +46,12 @@
 	</select>
 	
 	<select id="searchMember" resultType="memVO">
-<!-- 		select mem_id as memId -->
-<!-- 		      ,mem_name as memName -->
-<!-- 		      ,mem_joindate as memJoinDate -->
-<!-- 		from PJ_member where 1=1 -->
-<!-- 		<if test="mem_id != null and mem_id != ''"> -->
-<!-- 			and mem_id = #{memId}  -->
-<!-- 		</if>  -->
-<!-- 		<if test="mem_name != null and mem_name != ''"> -->
-<!-- 			and mem_name = #{memName}  -->
-<!-- 		</if> -->
-<!-- 		<if test="mem_joindate != null and mem_joindate != ''"> -->
-<!-- 			and memJoinDate = #{memJoinDate}  -->
-<!-- 		</if> -->
-	
-	
-	
+		select mem_id as memId
+		      ,mem_name as memName
+		      ,mem_joindate as memJoinDate
+		 from PJ_member
+		 where mem_id = #{memId}
+
 	</select>
 	
 

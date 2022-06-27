@@ -17,7 +17,7 @@ public interface MemberService {
 	public int updateMember(MemberVO mv);
 	// 회원정보 수정
 
-	public int delectMember(String id);
+	public int deleteMember(String id);
 	// 회원 삭제
 
 	public List<MemberVO> searchMember(MemberVO bv);

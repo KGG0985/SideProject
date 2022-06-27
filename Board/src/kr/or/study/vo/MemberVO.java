@@ -6,6 +6,7 @@ public class MemberVO {
 	private String memName;
 	private String memPassword;
 	private String memJoinDate;
+	
 	public String getMemId() {
 		return memId;
 	}

@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int delectMember(String id) {
+	public int deleteMember(String id) {
 		int cnt = memDao.delectMember(id);
 		return cnt;
 	}
