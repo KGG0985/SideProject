@@ -59,6 +59,9 @@ public class BoardInfoMain {
 				case 6 :  // 작업 끝
 					System.out.println("작업을 마칩니다.");
 					break;
+				case 7 :  // 작업 끝
+					new MemberController().mymenu();
+					break;
 				default :
 					System.out.println("번호를 잘못 입력했습니다. 다시입력하세요");
 			}
@@ -209,8 +212,8 @@ public class BoardInfoMain {
 		System.out.print("제목 >> ");
 		String boardTitle = scan.next();
 		
-		System.out.print("작성자 >> ");
-		String memidWriter = scan.next();
+//		System.out.print("작성자 >> ");
+//		String memidWriter = scan.next();
 		
 		scan.nextLine(); // 입력버퍼 비우기
 		
@@ -221,7 +224,7 @@ public class BoardInfoMain {
 		
 		BoardVO bv = new BoardVO();
 		bv.setBoardTitle(boardTitle);
-		bv.setMemidWriter(memidWriter);
+		bv.setMemidWriter(MemberController.loginMemID);
 		bv.setBoardContent(boardContent);
 
 		
