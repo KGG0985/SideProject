@@ -8,8 +8,8 @@
 		 select board_seq.nextval from dual 
 	</selectKey>-->
 		INSERT INTO PJ_BOARD  
-		( BOARD_NO, BOARD_TITLE, MEMID_WRITER, BOARD_CONTENT ,BOARD_DATE, BOARD_HITS)
-		VALUES (board_seq.NEXTVAL, #{boardTitle}, #{memidWriter}, #{boardContent}, SYSDATE,0)
+		( BOARD_NO, BOARD_TITLE, MEMID_WRITER, BOARD_CONTENT ,BOARD_DATE)
+		VALUES (board_seq.NEXTVAL, #{boardTitle}, #{memidWriter}, #{boardContent}, SYSDATE)
 	
 	</insert>
 	
@@ -33,8 +33,9 @@
 		select BOARD_NO 
 		      ,BOARD_TITLE 
 		      ,MEMID_WRITER 
-		      ,BOARD_CONTENT 
-		      ,BOARD_HITS 
+		      ,BOARD_CONTENT
+		      ,BOARD_DATE 
+		      ,BOARD_HITS
 		from PJ_BOARD
 		
 	</select>
