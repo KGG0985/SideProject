@@ -6,6 +6,7 @@ public class MemberVO {
 	private String memName;
 	private String memPassword;
 	private String memJoinDate;
+	private String memQuitDate;
 	
 	public String getMemId() {
 		return memId;
@@ -30,6 +31,12 @@ public class MemberVO {
 	}
 	public void setMemJoinDate(String memJoinDate) {
 		this.memJoinDate = memJoinDate;
+	}
+	public String getMemQuitDate() {
+		return memQuitDate;
+	}
+	public void setMemQuitDate(String memQuitDate) {
+		this.memQuitDate = memQuitDate;
 	}
 	@Override
 	public String toString() {

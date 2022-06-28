@@ -77,7 +77,7 @@ public class MemberDAOIm implements MemberDAO {
 	}
 
 	@Override
-	public int delectMember(String id) {
+	public int deleteMember(String id) {
 		int cnt = sqlSession.delete("member.deleteMember", id);
 
 		if (cnt > 0) {
@@ -112,6 +112,15 @@ public class MemberDAOIm implements MemberDAO {
 		
 		
 		return isExist;
+	}
+
+
+	@Override
+	public String checkQuitMember(String id) {
+		String quitDate = sqlSession.selectOne("member.checkQuitMember", id);
+
+		return quitDate;
+		
 	}
 
 	

@@ -19,7 +19,7 @@ public interface MemberDAO {
 	public int updateMember(MemberVO mv);
 		// 회원정보 수정
 	
-	public int delectMember(String id);
+	public int deleteMember(String id);
 		// 회원 삭제
 	
 	public List<MemberVO> searchMember(MemberVO bv);
@@ -27,6 +27,8 @@ public interface MemberDAO {
 	
 	public boolean checkMember(String id);
 		// 중복 체크
+	
+	public String checkQuitMember(String id);
 	
 	
 	

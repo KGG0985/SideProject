@@ -25,5 +25,7 @@ public interface MemberService {
 
 	public boolean checkMember(String id);
 	// 중복 체크
+	
+	public String checkQuitMember(String id);
 
 }

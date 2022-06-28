@@ -32,6 +32,7 @@ public class BoardInfoMain {
 		System.out.println("  4. 게시판 출력");
 		System.out.println("  5. 게시판 검색");
 		System.out.println("  6. 작업 끝.");
+		System.out.println("  7. 나의 메뉴.");
 		System.out.println("----------------------");
 		System.out.print("원하는 작업 선택 >> ");
 	}
@@ -60,7 +61,7 @@ public class BoardInfoMain {
 					System.out.println("작업을 마칩니다.");
 					break;
 				case 7 :  // 작업 끝
-					new MemberController().mymenu();
+					new MemberController().mymenuStart();
 					break;
 				default :
 					System.out.println("번호를 잘못 입력했습니다. 다시입력하세요");

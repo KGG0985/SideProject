@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int deleteMember(String id) {
-		int cnt = memDao.delectMember(id);
+		int cnt = memDao.deleteMember(id);
 		return cnt;
 	}
 
@@ -65,4 +65,9 @@ public class MemberServiceImpl implements MemberService {
 		return isExist;
 	}
 	
+	public String checkQuitMember(String id) {
+		String quitDate = memDao.checkQuitMember(id);
+		return quitDate;
+		
+	}
 }

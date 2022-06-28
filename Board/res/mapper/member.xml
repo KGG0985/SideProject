@@ -19,16 +19,21 @@
 	</insert>
 	
 	<update id="updateMember">
-<!-- 		update PJ_member -->
-<!-- 		   set mem_id = #{memId} -->
-<!-- 		       ,mem_name = #{memName} -->
-<!-- 		       ,mem_password = #{memPassword} -->
+		update PJ_member
+		   set mem_password = #{memPassword}
+		 where mem_id = #{memId} 
 		
 	</update>
 	
 	<delete id="deleteMember">
 	
- 		delete from PJ_member where mem_id = #{memId} 
+<!--  		delete from PJ_member where mem_id = #{memId}  -->
+	    	update PJ_member
+		 	 set mem_quitdate = sysdate
+			where mem_id = #{memId} 
+			
+
+ 		
 	</delete>
 	
 	<select id="printMember" resultType="memVO">
@@ -52,6 +57,13 @@
 		 from PJ_member
 		 where mem_id = #{memId}
 
+	</select>
+	
+	<select id="checkQuitMember" resultType="String"> 
+		select mem_quitdate as memQuitDate
+		from PJ_member 
+		where mem_id = #{memId}
+	
 	</select>
 	
 
