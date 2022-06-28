@@ -26,20 +26,20 @@ public class CommentServiceImpl implements CommentService{
 
 	@Override
 	public int updateComment(CommentVO cv) {
-		// TODO Auto-generated method stub
-		return 0;
+		int cnt = comDao.updateComment(cv);
+		return cnt;
 	}
 
 	@Override
 	public int deleteComment(String comNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int cnt = comDao.deleteComment(comNo);
+		return cnt;
 	}
 
 	@Override
 	public boolean checkComment(String comNo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isExist = comDao.checkComment(comNo);
+		return isExist;
 	}
 
 }

@@ -11,7 +11,7 @@ public class CommentTest {
 	CommentService comService;
 	
 	private Scanner scan = new Scanner(System.in);
-	
+	CommentVO cv = new CommentVO();
 	public CommentTest() {
 		comService = new CommentServiceImpl();
 	
@@ -104,15 +104,62 @@ public class CommentTest {
 
 
 	private void updatePost() {
-		// TODO Auto-generated method stub
 		
+		String comNo = "";
+		boolean isExist = false;  //  중복 체크용
+		
+		do {
+			System.out.println();
+			System.out.println("수정할 회원 정보를 입력하세요.");
+			System.out.print("글번호 >> ");
+			
+			comNo = scan.next();
+			
+			isExist = checkComment(comNo);
+			
+			if(!isExist) {
+				System.out.println("회원ID가 " + comNo + "인 회원은 "
+						+ "존재하지 않습니다.");
+				System.out.println("다시 입력해 주세요.");
+			}
+			
+		}while(!isExist);
+		
+		
+		System.out.print("회원 전화번호 >> ");
+		String comContent = scan.next();
+		
+		scan.nextLine(); // 입력버퍼 비우기
+		
+		cv.setComNo(comNo);
+		cv.setComContent(comContent);
+
+		
+		int cnt = comService.updateComment(cv);
+		
+		if(cnt > 0) {
+			System.out.println("회원정보 수정 완료.");
+		}else {
+			System.out.println("회원정보 수정 실패!!!");
+		}
 	}
 
 
 
 	private void deletePost() {
-		// TODO Auto-generated method stub
+		System.out.println();
+		System.out.println("삭제할 회원 정보를 입력하세요.");
+		System.out.print("회원 ID >> ");
 		
+		String comNo = scan.next();
+		
+		int cnt = comService.deleteComment(comNo);
+		
+		if(cnt > 0) {
+			System.out.println("회원정보 삭제 성공.");
+		}else {
+			System.out.println("회원정보 삭제 실패!!!");
+		}
 	}
 
 
@@ -137,7 +184,12 @@ public class CommentTest {
 		}
 	}
 
-
+	private boolean checkComment(String comNo) {
+		
+		boolean isExist = comService.checkComment(comNo);
+		
+		return isExist;
+	}
 
 	public static void main(String[] args) {
 		CommentTest comObj = new CommentTest();

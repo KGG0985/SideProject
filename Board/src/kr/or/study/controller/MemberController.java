@@ -74,6 +74,8 @@ public class MemberController {
 			
 			else if(memService.checkQuitMember(memId) != null) {
 				System.out.println("탈퇴한 회원의 아이디 입니다");
+				isExist = false;
+				
 			}
 
 		} while (!isExist);
