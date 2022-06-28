@@ -47,7 +47,7 @@ public class CommentDAOImpl implements CommentDAO{
 
 	@Override
 	public int deleteComment(String comNo) {
-		int cnt = sqlSession.delete(namespace + ".deletePost",comNo);
+		int cnt = sqlSession.delete(namespace + ".deleteComment",comNo);
 		return cnt;
 	}
 
