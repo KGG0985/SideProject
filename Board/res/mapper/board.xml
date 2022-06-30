@@ -8,8 +8,8 @@
 		 select board_seq.nextval from dual 
 	</selectKey>-->
 		INSERT INTO PJ_BOARD  
-		( BOARD_NO, BOARD_TITLE, MEMID_WRITER, BOARD_CONTENT ,BOARD_DATE)
-		VALUES (board_seq.NEXTVAL, #{boardTitle}, #{memidWriter}, #{boardContent}, SYSDATE)
+		( BOARD_NO, BOARD_TITLE, MEMID_WRITER, BOARD_CONTENT ,BOARD_DATE, BOARD_HITS)
+		VALUES (board_seq.NEXTVAL, #{boardTitle}, #{memidWriter}, #{boardContent}, SYSDATE, 0)
 	
 	</insert>
 	
@@ -75,5 +75,22 @@
 		</if>
 		
 	</select>
+	
+	<select id="boardRead" resultType="bodVO">
+		select BOARD_NO 
+			 , BOARD_TITLE 
+			 , MEMID_WRITER 
+			 , BOARD_CONTENT 
+			 , BOARD_DATE 
+			 , BOARD_HITS
+	  	from pj_board where board_no = #{boardNo}
+	</select>
+	
+	<update id="boardHit" parameterType="bodVO">
+		update pj_board
+		set board_hits = board_hits + 1
+		where board_no = #{boardNo}
+		
+	</update>
 
 </mapper>

@@ -89,5 +89,23 @@ public class BoardDAOImpl implements BoardDAO {
 		return boardList;
 	}
 	
+	public List<BoardVO> boardRead(BoardVO bv) {
+		
+		List<BoardVO> boardList = sqlSession.selectList("board.boardRead",bv);
+		
+		return boardList;
+		
+	}
 
+	public void boardHits(int boardNo) throws Exception {
+	
+		sqlSession.update("board.boardHits", boardNo);
+		
+	}
+
+	@Override
+	public String boardHit(BoardVO bv) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

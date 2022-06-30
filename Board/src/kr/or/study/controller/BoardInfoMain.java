@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import kr.or.study.service.BoardServiceImpl;
 import kr.or.study.vo.BoardVO;
+import kr.or.study.vo.MemberVO;
 import kr.or.study.service.BoardService;
 
 
@@ -18,21 +19,22 @@ public class BoardInfoMain {
 		boardService = BoardServiceImpl.getInstance();
 	}
 	
-	
+	public static int boardDetail = 0;
 	
 	public void displayMenu(){
 		
 		
 		System.out.println();
 		System.out.println("----------------------");
-		System.out.println("  === 작 업 선 택 ===");
-		System.out.println("  1. 게시판 작성");
-		System.out.println("  2. 게시판 삭제");
-		System.out.println("  3. 게시판 수정");
-		System.out.println("  4. 게시판 출력");
-		System.out.println("  5. 게시판 검색");
-		System.out.println("  6. 나의 메뉴.");
-		System.out.println("  7. 작업 끝.");
+		System.out.println("  === 메 뉴 선 택 ===");
+		System.out.println("  1. 게시글 작성");
+		System.out.println("  2. 게시글 삭제");
+		System.out.println("  3. 게시글 수정");
+		System.out.println("  4. 게시글 조회");
+		System.out.println("  5. 게시글 검색");
+		System.out.println("  6. 로그인 화면");
+		System.out.println("  7. 게시글 정보");
+		System.out.println("  8. 종료");
 		System.out.println("----------------------");
 		System.out.print("원하는 작업 선택 >> ");
 	}
@@ -61,6 +63,9 @@ public class BoardInfoMain {
 					new MemberController().mymenuStart();
 					break;
 				case 7 :  
+					boardRead();
+					break;
+				case 8 :
 					System.out.println("작업을 마칩니다.");
 					break;
 				default :
@@ -218,6 +223,33 @@ public class BoardInfoMain {
 			System.out.println(bv.getBoardNo() + "게시글 등록 실패!!!");
 		}		
 	}
+	
+	private void boardRead() {
+
+		System.out.println("게시글 번호를 입력하세요.");
+
+		int boardNo = scan.nextInt();
+
+		
+		BoardVO bv = new BoardVO();
+		bv.setBoardNo(boardNo);
+		
+		List<BoardVO> boardList = boardService.boardRead(bv);
+		
+		if(boardList.size() == 0) {
+			System.out.println("검색된 게시글이 없습니다.");
+		}else {
+		
+		
+		for(BoardVO bv2 : boardList) {
+			System.out.println("제목 : " + bv2.getBoardTitle() + "내용 : " + bv2.getBoardContent() 
+								+"작성자 : " + bv2.getMemidWriter() + " 작성일 : " + bv2.getBoardDate());
+		}
+		
+		}
+		
+	}
+
 	
 	public static void main(String[] args) {
 		BoardInfoMain bodObj = new BoardInfoMain();

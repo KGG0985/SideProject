@@ -17,5 +17,11 @@ public interface BoardService {
 	public boolean checkBoard(int boardNo);
 
 	public List<BoardVO> searchBoard(BoardVO bv);
+	
+	public List<BoardVO> boardRead(BoardVO bv);
+	
+	public String boardHit(BoardVO bv);
+	
+	
 		
 }
